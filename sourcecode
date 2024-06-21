@@ -1,0 +1,74 @@
+import random  # Imports the random module to generate random numbers.
+import pandas as pd  # Imports the Pandas library, commonly used for data manipulation and analysis.
+
+# Function to generate dummy data
+def generate_dummy_dataset(num_records):
+    # Generate IoT data
+    iot_data = {
+        "sensor_id": [f"sensor_{i}" for i in range(num_records)],  
+         # Generate sensor IDs
+        "temperature": [random.uniform(20.0, 40.0) for _ in range(num_records)],  
+        # Generate random temperatures
+        "humidity": [random.uniform(30.0, 70.0) for _ in range(num_records)]  
+         # Generate random humidities
+    }
+# "sensor_id": List comprehension to generate sensor IDs like "sensor_0", "sensor_1", ..., "sensor_49".
+# "temperature": List comprehension to generate random temperatures between 20.0 and 40.0.
+# "humidity": List comprehension to generate random humidities between 30.0 and 70.0.
+
+    # Generate blockchain data
+    blockchain_data = {
+        "transaction_id": [f"tx_{i}" for i in range(num_records)],  
+        # Generate transaction IDs
+        "transaction_status": [random.choice(["valid", "invalid"]) for _ in range(num_records)]  
+         # Randomly choose transaction status
+    }
+
+# Creates blockchain_data dictionary with:
+# "transaction_id": List comprehension to generate transaction IDs like "tx_0", "tx_1", ..., "tx_49".
+# "transaction_status": List comprehension to randomly choose between "valid" and "invalid" for each transaction.
+
+    # Generate AI anomalies data
+    ai_anomalies_data = {
+        "anomaly_id": [f"anomaly_{i}" for i in range(num_records * 2)],  
+# More anomalies than records for variability
+"anomaly_type": [random.choice(["normal", "anomaly"]) for _ in range(num_records * 2)]  # Randomly choose anomaly type
+    }
+
+# Creates ai_anomalies_data dictionary with: 
+# "anomaly_id": List comprehension to generate anomaly IDs like "anomaly_0", "anomaly_1", ..., "anomaly_99".
+# "anomaly_type": List comprehension to randomly choose between "normal" and "anomaly" for each anomaly, creating more anomalies (100) than records (50) for variability.
+
+    
+    # Convert dictionaries to Pandas DataFrames
+    df_iot = pd.DataFrame(iot_data)  
+    # Convert IoT data dictionary to DataFrame
+
+    df_blockchain = pd.DataFrame(blockchain_data)  
+    # Convert blockchain data dictionary to DataFrame
+
+    df_ai_anomalies = pd.DataFrame(ai_anomalies_data)  
+    # Convert AI anomalies data dictionary to DataFrame
+    
+    return df_iot, df_blockchain, df_ai_anomalies  # Return all three DataFrames
+
+# DataFrame Conversion: Converts each dictionary (iot_data, blockchain_data,   
+# ai_anomalies_data) into a Pandas DataFrame (df_iot, df_blockchain, df_ai_anomalies).
+# Returns: Returns all three DataFrames (df_iot, df_blockchain, df_ai_anomalies).
+
+# Audit simulation program with dummy dataset
+def perform_audit(data):
+    # Example audit process
+    anomalies_detected = sum([1 for status in data["anomaly_type"] if status == "anomaly"])  
+    # Count anomalies
+    
+    if anomalies_detected > 10:
+        risk_level = "High"  # Set risk level to High if anomalies detected are more than 10
+    else:
+        risk_level = "Low"  # Otherwise, set risk level to Low
+    
+    audit_report = {
+        "Anomalies Detected": anomalies_detected,  # Store number of anomalies detected
+        "Risk Level": risk_level  # Store determined risk level
+    }
+   return audit_report  # Return audit report dictionary
